@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Editar Endereço</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div th:replace="~{partials/header :: header}"></div>
+        <div class="container mx-auto">
+            <h1 class="text-2xl font-bold mb-6">Editar Endereço</h1>
+            <form id="addressForm">
+                <input type="hidden" id="id" name="id" th:value="${address.id}"/>
+                <div class="mb-4">
+                    <label for="street" class="block text-gray-700">Rua:</label>
+                    <input type="text" id="street" name="street" class="mt-1 p-2 border rounded w-full" th:value="${address.street}" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="number" class="block text-gray-700">Número:</label>
+                    <input type="text" id="number" name="number" class="mt-1 p-2 border rounded w-full" th:value="${address.number}" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="neighborhood" class="block text-gray-700">Bairro:</label>
+                    <input type="text" id="neighborhood" name="neighborhood" class="mt-1 p-2 border rounded w-full" th:value="${address.neighborhood}" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="city" class="block text-gray-700">Cidade:</label>
+                    <input type="text" id="city" name="city" class="mt-1 p-2 border rounded w-full" th:value="${address.city}" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="state" class="block text-gray-700">Estado:</label>
+                    <input type="text" id="state" name="state" class="mt-1 p-2 border rounded w-full" th:value="${address.state}" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="zipCode" class="block text-gray-700">CEP:</label>
+                    <input type="text" id="zipCode" name="zipCode" class="mt-1 p-2 border rounded w-full" th:value="${address.zipCode}" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="customerId" class="block text-gray-700">Cliente:</label>
+                    <select id="customerId" name="customerId" class="mt-1 p-2 border rounded w-full" required>
+                        <option value="" disabled selected>Selecione um cliente</option>
+                        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name + ' ' + customer.lastName}" th:selected="${customer.id == address.customerId}"></option>
+                    </select>
+                </div>
+                <div class="flex justify-end">
+                    <a href="/address" class="bg-gray-500 text-white p-2 rounded mr-2">Cancelar</a>
+                    <button type="submit" class="bg-blue-500 text-white p-2 rounded">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addressForm = document.getElementById('addressForm');
+
+            addressForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const id = document.getElementById('id').value;
+                const customerId = document.getElementById('customerId').value;
+                const formData = new FormData(addressForm);
+                formData.append('customerId', customerId);
+
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                fetch('/api/address/' + id, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/address';
+                    } else {
+                        showToast('Erro ao salvar o endereço.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+    <script th:src="@{/js/toast.js}"></script>
+</html>

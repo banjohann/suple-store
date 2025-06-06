@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Loja Suplementos</string>
+    <string name="users">Usuários</string>
+    <string name="sales">Vendas</string>
+    <string name="settings">Configurações</string>
+    <string name="user_details">Detalhes do Usuário</string>
+    <string name="new_sale">Nova Venda</string>
+    <string name="name">Nome</string>
+    <string name="email">Email</string>
+    <string name="phone">Telefone</string>
+    <string name="address">Endereço</string>
+    <string name="save">Salvar</string>
+    <string name="delete">Excluir</string>
+    <string name="add_user">Adicionar Usuário</string>
+    <string name="create_sale">Criar Venda</string>
+    <string name="select_user">Selecionar Cliente</string>
+    <string name="add_product">Adicionar Produto</string>
+    <string name="quantity">Quantidade</string>
+    <string name="total">Total</string>
+    <string name="checkout">Finalizar Venda</string>
+</resources>

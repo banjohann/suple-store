@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>New Customer</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
+        <script src="https://unpkg.com/vanilla-masker/build/vanilla-masker.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div th:replace="~{partials/header :: header}"></div>
+        <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold mb-4">Criar novo cliente</h1>
+            <form id="customerForm" method="POST" action="/api/customers/save">
+                <input hidden type="text" id="id" name="id" th:value="${customer.id}"/>
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700">Nome:</label>
+                    <input type="text" id="name" name="name" class="mt-1 p-2 border rounded w-full" th:value="${customer.name}" required/>
+                </div>
+                <div class="mb-4">
+                    <label for="lastName" class="block text-gray-700">Sobrenome:</label>
+                    <input type="text" id="lastName" name="lastName" class="mt-1 p-2 border rounded w-full" th:value="${customer.lastName}"/>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700">Email:</label>
+                    <input type="email" id="email" name="email" class="mt-1 p-2 border rounded w-full" required th:value="${customer.email}"/>
+                </div>
+                <div class="mb-4">
+                    <label for="phoneNumber" class="block text-gray-700">Telefone:</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" class="mt-1 p-2 border rounded w-full" required th:value="${customer.phone}"/>
+                </div>
+                <div class="mb-4">
+                    <label for="cpf" class="block text-gray-700">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" class="mt-1 p-2 border rounded w-full" required th:value="${customer.cpf}"/>
+                </div>
+                <div class="mb-4">
+                    <label for="birthDate" class="block text-gray-700">Data Nascimento:</label>
+                    <input type="text" id="birthDate" name="birthDate" class="mt-1 p-2 border rounded w-full" th:value="${#dates.format(customer.birthDate, 'dd/MM/yyyy')}" required/>
+                </div>
+                <div class="mt-4">
+                    <a href="/customers" class="bg-gray-500 text-white p-2 rounded">Cancelar</a>
+                    <button type="submit" class="bg-blue-500 text-white p-2 rounded float-right">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('customerForm').addEventListener('submit', submitForm);
+
+            flatpickr("#birthDate", {
+                dateFormat: "d/m/Y"
+            });
+
+            VMasker(document.querySelector("#cpf")).maskPattern("999.999.999-99");
+            VMasker(document.querySelector("#phoneNumber")).maskPattern("(99) 99999-9999");
+        });
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const form = document.getElementById('customerForm');
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            submitEdit(data);
+        }
+
+        function submitEdit(data) {
+            fetch(`/api/customers/${data.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/customers';
+                } else {
+                    response.json().then(data => {
+                        showToast(data.errorMessage || 'Falha ao editar cliente');
+                    });
+                }
+            });
+        }
+    </script>
+    <script th:src="@{/js/toast.js}"></script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Produto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div th:replace="~{partials/header :: header}"></div>
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Informações do Produto</h1>
+        <div class="mb-4">
+            <h2 class="text-lg font-semibold">Detalhes</h2>
+            <p><strong>Nome:</strong> <span th:text="${product.name}"></span></p>
+            <p><strong>Marca:</strong> <span th:text="${product.brand.name}"></span></p>
+            <p><strong>Descrição:</strong> <span th:text="${product.description}"></span></p>
+            <p><strong>Preço:</strong> <span th:text="${product.price}"></span></p>
+            <p><strong>Quantidade em Estoque:</strong> <span th:text="${product.quantityInStock}"></span></p>
+            <p><strong>Tipo:</strong> <span th:text="${product.type}"></span></p>
+        </div>
+        <a href="/products" class="bg-gray-500 text-white px-4 py-2 rounded">Voltar</a>
+    </div>
+</body>
+</html>

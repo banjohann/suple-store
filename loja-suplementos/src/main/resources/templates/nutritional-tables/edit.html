@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Tabela Nutricional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div th:replace="partials/header :: header"></div>
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6">Editar Tabela Nutricional</h1>
+        <form class="space-y-4">
+            <input type="hidden" id="id" name="id" th:value="${nutritionalTable.id}">
+            <div>
+                <label for="description" class="block text-sm font-medium">Descrição</label>
+                <input type="text" id="description" name="description" th:value="${nutritionalTable.description}" class="w-full border border-gray-300 rounded-lg" required>
+            </div>
+            <div>
+                <label for="calories" class="block text-sm font-medium">Calorias</label>
+                <input type="number" id="calories" name="calories" th:value="${nutritionalTable.calories}" class="w-full border border-gray-300 rounded-lg" required>
+            </div>
+            <div>
+                <label for="carbsPerServing" class="block text-sm font-medium">Carboidratos por Porção (g)</label>
+                <input type="number" step="0.01" id="carbsPerServing" name="carbsPerServing" th:value="${nutritionalTable.carbsPerServing}" class="w-full border border-gray-300 rounded-lg" required>
+            </div>
+            <div>
+                <label for="proteinPerServing" class="block text-sm font-medium">Proteínas por Porção (g)</label>
+                <input type="number" step="0.01" id="proteinPerServing" name="proteinPerServing" th:value="${nutritionalTable.proteinPerServing}" class="w-full border border-gray-300 rounded-lg" required>
+            </div>
+            <div>
+                <label for="fatPerServing" class="block text-sm font-medium">Gorduras por Porção (g)</label>
+                <input type="number" step="0.01" id="fatPerServing" name="fatPerServing" th:value="${nutritionalTable.fatPerServing}" class="w-full border border-gray-300 rounded-lg" required>
+            </div>
+            <div>
+                <label for="servingSize" class="block text-sm font-medium">Tamanho da Porção (g)</label>
+                <input type="number" step="0.01" id="servingSize" name="servingSize" th:value="${nutritionalTable.servingSize}" class="w-full border border-gray-300 rounded-lg" required>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-400">Salvar</button>
+            </div>
+        </form>
+    </div>
+</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                fetch(`/api/nutritional-tables/${data.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = '/nutritional-tables';
+                    } else {
+                        response.json().then(error => {
+                            showToast(error.errorMessage || 'Erro ao salvar a tabela nutricional');
+                        });
+                    }
+                }).catch(() => {
+                    showToast('Erro ao salvar a tabela nutricional');
+                });
+            });
+        });
+    </script>
+    <script th:src="@{/js/toast.js}"></script>
+</html>

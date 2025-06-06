@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 text-gray-900">
+        <div th:replace="~{partials/header :: header}"></div>
+        <div class="container mx-auto p-8 max-w-3xl bg-white rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold mb-4">Loja de Suplementos</h1>
+            <ul class="space-y-4">
+                <li>
+                    <hr class="my-6 border-gray-300">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-4">CRUDs:</h2>
+                </li>
+                <li>
+                    <a href="/customers" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Clientes</a>
+                </li>
+                <li>
+                    <a href="/address" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Endereços</a>
+                </li>
+                <li>
+                    <a href="/brands" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Marcas</a>
+                </li>
+                <li>
+                    <a href="/nutritional-tables" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Tabelas Nutricionais</a>
+                </li>
+                <li>
+                    <a href="/products" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Produtos</a>
+                </li>
+                <li>
+                    <a href="/payments" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Pagamentos</a>
+                </li>
+                <li>
+                    <a href="/shipping" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Entregas</a>
+                </li>
+                <li>
+                    <hr class="my-6 border-gray-300">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-4">Operações de Negócio:</h2>
+                </li>
+                <li>
+                    <a href="/sales/new" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Cadastrar venda</a>
+                </li>
+                <li>
+                    <a href="/sales" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Listar Vendas</a>
+                </li>
+                <li>
+                    <hr class="my-6 border-gray-300">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-4">Relatórios:</h2>
+                </li>
+                <li>
+                    <a href="/reports/cities-with-most-sales" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Cidades com mais vendas</a>
+                </li>
+                <li>
+                    <a href="/reports/clients-with-most-purchase-value" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Clientes com maior valor de vendas</a>
+                </li>
+                <li>
+                    <a href="/reports/products-with-most-sales" class="block bg-white text-gray-900 text-center py-4 rounded-lg shadow-md transform hover:scale-105 transition-transform duration-200">Produtos com mais vendas</a>
+                </li>
+            </ul>
+        </div>
+    </body>
+    <script th:src="@{/js/toast.js}"></script>
+</html>

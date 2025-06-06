@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Detalhes do cliente</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div th:replace="~{partials/header :: header}"></div>
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold mb-4">Informações do cliente</h1>
+            <div class="mb-4">
+                <h2 class="text-lg font-semibold">Informações Pessoais</h2>
+                <p><strong>Nome:</strong> <span th:text="${customer.name} + ' ' + ${customer.lastName}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+                <p><strong>Telefone:</strong> <span th:text="${customer.phone}"></span></p>
+                <p><strong>CPF:</strong> <span th:text="${customer.cpf}"></span></p>
+                <p><strong>Data de Nascimento:</strong> <span th:text="${customer.birthDate.toLocaleString()}"></span></p>
+            </div>
+            <div class="mb-4">
+                <h2 class="text-lg font-semibold">Endereços</h2>
+                <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                    <thead>
+                    <tr class="bg-blue-200 text-left">
+                        <th class="py-2 px-4 border-b">Rua</th>
+                        <th class="py-2 px-4 border-b">Cidade</th>
+                        <th class="py-2 px-4 border-b">Estado</th>
+                        <th class="py-2 px-4 border-b">CEP</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="address : ${addresses}" class="hover:bg-gray-100">
+                        <td class="py-2 px-4 border-b" th:text="${address.street}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${address.city}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${address.state}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${address.zipCode}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <a href="/customers" class="bg-gray-500 text-white px-4 py-2 rounded">Voltar</a>
+        </div>
+    </body>
+</html>

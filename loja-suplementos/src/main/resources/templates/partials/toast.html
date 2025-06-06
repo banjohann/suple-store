@@ -1,0 +1,11 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="toast" class="inset-0 flex justify-center mt-10">
+    <div id="toast" class="toast max-w-sm" th:classappend="${errorMessage == null} ? 'hidden' : ''">
+        <div class="bg-red-400 text-white p-4 rounded mb-4 flex justify-between items-center">
+            <span id="error-message" th:text="${errorMessage}"></span>
+            <button type="button" class="text-white text-xxl" onclick="dismissToast()">&times;</button>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/toast.js}"></script>
+</html>

@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: Postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/loja-suplementos
+    username: loja-suplementos-admin
+    password: umasenhanadasegura
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  thymeleaf:
+    cache: false
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+  error:
+    path: /error

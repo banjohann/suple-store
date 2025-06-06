@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Produtos</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div th:replace="~{partials/header :: header}"></div>
+        <div class="container mx-auto mt-8 p-8 max-w-3xl bg-white rounded-lg shadow-md">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Produtos</h1>
+                <a href="/products/new" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400">Criar produto</a>
+            </div>
+            <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+                <thead>
+                    <tr class="bg-gray-200 text-left">
+                        <th class="py-2 px-4 border-b">ID</th>
+                        <th class="py-2 px-4 border-b">Nome</th>
+                        <th class="py-2 px-4 border-b">Marca</th>
+                        <th class="py-2 px-4 border-b">Preço</th>
+                        <th class="py-2 px-4 border-b">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${products}"
+                        th:onclick="|window.location.href='/products/' + ${product.id}|"
+                        class="cursor-pointer hover:bg-gray-100">
+                        <td class="py-2 px-4 border-b" th:text="${product.id}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${product.name}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${product.brand.name}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${product.price}"></td>
+                        <td class="py-2 border-b">
+                            <div class="flex justify-center">
+                                <a th:href="@{/products/{id}/edit(id=${product.id})}" class="bg-yellow-500 text-black mr-2 px-4 py-2 rounded hover:bg-yellow-400">Editar</a>
+                                <button th:data-id="${product.id}" class="delete-btn bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400">Remover</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    const productId = this.dataset.id;
+                    if (confirm("Quer mesmo remover esse produto?")) {
+                        deleteProduct(productId);
+                    }
+                });
+            });
+        });
+
+        function deleteProduct(productId) {
+            fetch(`/api/products/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    showToast("Error deleting product");
+                }
+            });
+        }
+    </script>
+    <script th:src="@{/js/toast.js}"></script>
+</html>

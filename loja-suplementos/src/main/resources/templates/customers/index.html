@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de clientes</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div th:replace="~{partials/header :: header}"></div>
+        <div class="container mx-auto mt-8 p-8 max-w-3xl bg-white rounded-lg shadow-md">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-bold">Lista de Clientes</h1>
+                <a href="/customers/new" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-400">Novo Cliente</a>
+            </div>
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b">ID</th>
+                        <th class="py-2 px-4 border-b">Nome</th>
+                        <th class="py-2 px-4 border-b">E-mail</th>
+                        <th class="py-2 px-4 border-b">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="customer : ${customers}"
+                        th:onclick="|window.location.href='/customers/' + ${customer.id}|"
+                        class="cursor-pointer hover:bg-gray-100">
+                        <td class="py-2 px-4 border-b" th:text="${customer.id}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${customer.name}"></td>
+                        <td class="py-2 px-4 border-b" th:text="${customer.email}"></td>
+                        <td class="py-2 border-b">
+                            <div class="flex justify-center">
+                                <a th:href="@{/customers/{id}/edit(id=${customer.id})}" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-400 mr-2">Editar</a>
+                                <button th:data-id="${customer.id}" class="delete-btn bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400 mr-2">Remover</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    const customerId = this.dataset.id;
+                    deleteCustomer(customerId);
+                });
+            });
+        });
+
+        function deleteCustomer(customerId) {
+            fetch(`/api/customers/${customerId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/customers';
+                } else {
+                    response.json().then(error => {
+                        showToast(error.errorMessage || 'Erro ao salvar a marca.');
+                    });
+                }
+            });
+        }
+    </script>
+    <script th:src="@{/js/toast.js}"></script>
+</html>

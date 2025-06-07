@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +23,26 @@ import java.util.Map;
 public class SaleRestController {
 
     private SaleService service;
+
+    @GetMapping
+    public ResponseEntity<?> getAllSales() {
+        try {
+            return ResponseEntity.ok(service.findAll());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("errorMessage", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getSaleById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("errorMessage", e.getMessage()));
+        }
+    }
 
     @PostMapping
     public ResponseEntity<?> createSale(@RequestBody SaleDTO saleDTO) {

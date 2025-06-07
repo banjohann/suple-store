@@ -25,6 +25,26 @@ public class CustomerRestController {
 
     private final CustomerService service;
 
+    @GetMapping("")
+    public ResponseEntity<?> getAllCustomers() {
+        try {
+            return ResponseEntity.ok(service.findAll());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("errorMessage", e.getMessage()));
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCustomerById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.findById(id));
+        } catch (DataIntegrityViolationException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Map<String, String> data) {
         try {
@@ -32,6 +52,18 @@ public class CustomerRestController {
         } catch (Exception e) {
             log.error(e.getMessage());
 
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editCustomer(@PathVariable Long id, @RequestBody Map<String, String> data) {
+        try {
+            this.service.update(data);
+        } catch (Exception e) {
+            log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
         }
 
@@ -46,18 +78,6 @@ public class CustomerRestController {
             var errorMessage = "Não é possível excluir o cliente, pois ele está vinculado a um pedido";
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", errorMessage));
-        }
-
-        return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> editCustomer(@PathVariable Long id, @RequestBody Map<String, String> data) {
-        try {
-            this.service.update(data);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
         }
 
         return ResponseEntity.ok().build();

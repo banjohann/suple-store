@@ -1,13 +1,8 @@
 package com.loja.suplementos.sale;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loja.suplementos.customer.CustomerService;
-import com.loja.suplementos.customer.domain.Customer;
 import com.loja.suplementos.payment.PaymentService;
-import com.loja.suplementos.payment.domain.PaymentMethod;
 import com.loja.suplementos.product.ProductService;
-import com.loja.suplementos.product.domain.ProductType;
 import com.loja.suplementos.sale.domain.Sale;
 import com.loja.suplementos.shipping.ShippingService;
 import lombok.AllArgsConstructor;
@@ -18,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller

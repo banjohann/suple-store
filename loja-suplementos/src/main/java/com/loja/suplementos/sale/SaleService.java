@@ -44,7 +44,7 @@ public class SaleService {
         var payment = paymentService.findById(saleDTO.getPaymentId());
 
         var saleItems = saleDTO.getProducts().stream().map(productQuantityDTO -> {
-            var product = productService.findById(productQuantityDTO.getProductId());
+            var product = productService.findByBarcode(productQuantityDTO.getBarcode());
 
             return SaleItem.builder()
                 .product(product)
@@ -82,7 +82,7 @@ public class SaleService {
         sale.setPayment(payment);
 
         var saleItems = saleDTO.getProducts().stream().map(productQuantityDTO -> {
-            var product = productService.findById(productQuantityDTO.getProductId());
+            var product = productService.findByBarcode(productQuantityDTO.getBarcode());
 
             return SaleItem.builder()
                 .product(product)

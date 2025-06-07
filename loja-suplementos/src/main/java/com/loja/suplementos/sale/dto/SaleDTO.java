@@ -13,7 +13,7 @@ public class SaleDTO {
 
     @Data
     public static class ProductQuantityDTO {
-        private Long productId;
+        private String barcode;
         private Integer quantity;
     }
 }

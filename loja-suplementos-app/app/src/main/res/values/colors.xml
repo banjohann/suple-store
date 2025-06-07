@@ -2,4 +2,26 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="gray_900">#FF212121</color>
+    <color name="gray_800">#FF424242</color>
+    <color name="gray_700">#FF616161</color>
+    <color name="gray_600">#FF757575</color>
+    <color name="gray_500">#FF9E9E9E</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_300">#FFE0E0E0</color>
+    <color name="gray_200">#FFEEEEEE</color>
+    <color name="gray_100">#FFF5F5F5</color>
+    <color name="gray_50">#FFFAFAFA</color>
+
+    <color name="background_primary">#FFFFFFFF</color>
+    <color name="background_secondary">#FFF5F5F5</color>
+    <color name="text_primary">#FF212121</color>
+    <color name="text_secondary">#FF757575</color>
+    <color name="divider">#FFE0E0E0</color>
+    <color name="button_primary">#FF212121</color>
+    <color name="button_text">#FFFFFFFF</color>
+    <color name="button_secondary">#FFE0E0E0</color>
+    <color name="button_secondary_text">#FF212121</color>
+    <color name="accent">#FF424242</color>
 </resources>

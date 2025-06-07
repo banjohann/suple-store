@@ -32,6 +32,11 @@ public class ProductService {
         return productRepository.findAllInStock();
     }
 
+    public Product findByBarcode(String barcode) {
+        return productRepository.findByBarcode(barcode)
+            .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado com o código de barras: " + barcode));
+    }
+
     public Product findById(Long id) {
         return productRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
@@ -51,6 +56,7 @@ public class ProductService {
             .builder()
             .name(data.get("name"))
             .brand(brand)
+            .barcode(data.get("barcode"))
             .nutritionalTable(nutritionalTable)
             .description(data.get("description"))
             .price(new BigDecimal(data.get("price")))
@@ -86,6 +92,7 @@ public class ProductService {
         product.setDescription(data.get("description"));
         product.setPrice(new BigDecimal(data.get("price")));
         product.setType(ProductType.valueOf(data.get("type")));
+        product.setBarcode(data.get("barcode"));
         product.setQuantityInStock(Integer.parseInt(data.get("quantityInStock")));
 
         productRepository.update(product);

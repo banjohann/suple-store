@@ -2,29 +2,111 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
 
-    <GridLayout
-        android:id="@+id/gridLayout"
+    <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:rowCount="3"
-        android:columnCount="3"
+        android:text="Suple Store"
+        android:textColor="@color/text_primary"
+        android:textSize="48sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_marginTop="64dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="32dp">
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <Button android:id="@+id/button00" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button01" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button02" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button10" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button11" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button12" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button20" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button21" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-        <Button android:id="@+id/button22" android:layout_width="100dp" android:layout_height="100dp" android:textSize="32sp"/>
-    </GridLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/salesCardView"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="64dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/button_primary"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/salesIcon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_shopping_bag"
+                app:tint="@color/button_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/salesText"
+                app:layout_constraintHorizontal_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/salesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vendas"
+                android:textColor="@color/button_text"
+                android:textSize="28sp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/salesIcon"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/customersCardView"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/accent"
+        app:layout_constraintTop_toBottomOf="@id/salesCardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/customersIcon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_users"
+                app:tint="@color/button_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/customersText"
+                app:layout_constraintHorizontal_chainStyle="packed"/>
+
+            <TextView
+                android:id="@+id/customersText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clientes"
+                android:textColor="@color/button_text"
+                android:textSize="28sp"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/montserrat"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/customersIcon"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

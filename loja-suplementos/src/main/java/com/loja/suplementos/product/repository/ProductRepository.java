@@ -18,4 +18,6 @@ public interface ProductRepository {
     List<Product> findAll();
 
     List<Product> findAllInStock();
+
+    Optional<Product> findByBarcode(String barcode);
 }

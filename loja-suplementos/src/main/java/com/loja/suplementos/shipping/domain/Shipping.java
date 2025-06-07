@@ -42,12 +42,4 @@ public class Shipping {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_address_id", nullable = true)
     private DeliveryAddress deliveryAddress;
-
-    public static Shipping ofNewShipping(DeliveryAddress deliveryAddress) {
-        var trackingNumber = UUID.randomUUID().toString();
-        var status = ShippingStatus.NOT_SHIPPED;
-        var statusDescription = "Pedido registrado";
-
-        return Shipping.builder().deliveryAddress(deliveryAddress).trackingNumber(trackingNumber).status(status).statusDescription(statusDescription).build();
-    }
 }

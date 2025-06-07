@@ -47,4 +47,12 @@ public class ProductRepositoryPGSQL implements ProductRepository {
     public List<Product> findAllInStock() {
         return this.entityManager.createQuery("SELECT p FROM Product p WHERE p.quantityInStock > 0", Product.class).getResultList();
     }
+
+    @Override
+    public Optional<Product> findByBarcode(String barcode) {
+        return this.entityManager.createQuery("SELECT p FROM Product p WHERE p.barcode = :barcode", Product.class)
+                .setParameter("barcode", barcode)
+                .getResultStream()
+                .findFirst();
+    }
 }

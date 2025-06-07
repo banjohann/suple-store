@@ -10,6 +10,8 @@
         <h1 class="text-2xl font-bold mb-4">Informações do Produto</h1>
         <div class="mb-4">
             <h2 class="text-lg font-semibold">Detalhes</h2>
+            <p><strong>ID:</strong> <span th:text="${product.id}"></span></p>
+            <p><strong>Cód. Barras:</strong> <span th:text="${product.barcode}"></span></p>
             <p><strong>Nome:</strong> <span th:text="${product.name}"></span></p>
             <p><strong>Marca:</strong> <span th:text="${product.brand.name}"></span></p>
             <p><strong>Descrição:</strong> <span th:text="${product.description}"></span></p>

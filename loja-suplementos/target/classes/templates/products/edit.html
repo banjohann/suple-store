@@ -15,6 +15,10 @@
                 <input type="text" id="name" name="name" th:value="${product.name}" class="w-full border border-gray-300 rounded-lg" required>
             </div>
             <div>
+                <label for="barcode" class="block text-sm font-medium">Código de Barras</label>
+                <input type="text" id="barcode" name="barcode" th:value="${product.barcode}" class="w-full border border-gray-300 rounded-lg" required>
+            </div>
+            <div>
                 <label for="brandId" class="block text-sm font-medium">Marca</label>
                 <select id="brandId" name="brandId" class="w-full border border-gray-300 rounded-lg" required>
                     <option value="" disabled>Selecione uma marca</option>

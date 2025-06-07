@@ -9,7 +9,6 @@ import com.loja.suplementos.sale.domain.SaleItem;
 import com.loja.suplementos.sale.dto.SaleDTO;
 import com.loja.suplementos.sale.repository.SaleRepository;
 import com.loja.suplementos.shipping.ShippingService;
-import com.loja.suplementos.shipping.domain.Shipping;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

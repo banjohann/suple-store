@@ -19,7 +19,7 @@ public interface CustomerApiService {
     @GET("customers/{id}")
     Call<Customer> getCustomerById(@Path("id") int id);
 
-    @POST("customers")
+    @POST("customers/mobile")
     Call<Customer> createCustomer(@Body Customer customer);
 
     @PUT("customers/{id}")

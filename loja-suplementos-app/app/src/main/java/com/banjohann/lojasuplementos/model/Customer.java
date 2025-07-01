@@ -1,9 +1,10 @@
 package com.banjohann.lojasuplementos.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Customer {
+public class Customer implements Serializable {
     private Long id;
 
     private String name;

@@ -28,3 +28,6 @@ services:
 
 volumes:
   postgres_data:
+
+
+  docker run --name pgtest -e POSTGRES_PASSWORD=umasenhanadasegura -e POSTGRES_USER=loja-suplementos-admin -e POSTGRES_DB=loja-suplementos -p 5432:5432 -d postgres

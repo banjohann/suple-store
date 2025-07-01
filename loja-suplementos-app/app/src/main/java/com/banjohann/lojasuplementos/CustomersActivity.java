@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import android.content.Intent;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -138,7 +140,9 @@ public class CustomersActivity extends AppCompatActivity implements CustomerAdap
 
     @Override
     public void onCustomerClick(Customer customer) {
-        // TODO: Navigate to customer details
+        Intent intent = new Intent(this, CustomerEditActivity.class);
+        intent.putExtra("customer", customer);
+        startActivity(intent);
         Toast.makeText(this, "Cliente selecionado: " + customer.getName(), Toast.LENGTH_SHORT).show();
     }
 

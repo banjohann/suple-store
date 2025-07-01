@@ -14,5 +14,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  app:
+    build: .
+    container_name: suple-store-app
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/loja-suplementos
+      SPRING_DATASOURCE_USERNAME: loja-suplementos-admin
+      SPRING_DATASOURCE_PASSWORD: umasenhanadasegura
+    ports:
+      - "8080:8080"
+
 volumes:
   postgres_data:

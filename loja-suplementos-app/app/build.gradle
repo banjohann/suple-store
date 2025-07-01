@@ -59,5 +59,6 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.2.3'
 
     implementation 'com.google.mlkit:barcode-scanning:17.1.0'
+    implementation libs.activity
 }
 

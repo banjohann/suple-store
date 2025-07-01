@@ -1,6 +1,7 @@
 package com.banjohann.lojasuplementos.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Customer {
     private Long id;
@@ -17,7 +18,9 @@ public class Customer {
 
     private Date birthDate;
 
-    public Customer(Long id, String name, String lastName, String email, String phone, String cpf, Date birthDate) {
+    private List<DeliveryAddress> deliveryAddresses;
+
+    public Customer(Long id, String name, String lastName, String email, String phone, String cpf, Date birthDate, List<DeliveryAddress> deliveryAddresses) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -25,6 +28,7 @@ public class Customer {
         this.phone = phone;
         this.cpf = cpf;
         this.birthDate = birthDate;
+        this.deliveryAddresses = deliveryAddresses;
     }
 
     public Long getId() {
@@ -81,5 +85,13 @@ public class Customer {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public List<DeliveryAddress> getDeliveryAddresses() {
+        return deliveryAddresses;
+    }
+
+    public void setDeliveryAddresses(List<DeliveryAddress> deliveryAddresses) {
+        this.deliveryAddresses = deliveryAddresses;
     }
 }

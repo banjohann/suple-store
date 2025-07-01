@@ -1,4 +1,4 @@
-package com.banjohann.lojasuplementos;
+package com.banjohann.lojasuplementos.customer;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -13,12 +13,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.banjohann.lojasuplementos.R;
 import com.banjohann.lojasuplementos.api.ApiClient;
 import com.banjohann.lojasuplementos.api.CustomerApiService;
 import com.banjohann.lojasuplementos.model.Customer;
+import com.banjohann.lojasuplementos.model.DeliveryAddress;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -58,19 +61,17 @@ public class CustomerEditActivity extends AppCompatActivity {
 
         apiService = ApiClient.getCustomerService();
 
-        // Pegando o Customer da Intent
         customer = (Customer) getIntent().getSerializableExtra("customer");
 
         if (customer != null) {
             preencherCampos();
         } else {
-            deleteButton.setVisibility(View.GONE); // Não mostra botão de deletar se for novo
+            deleteButton.setVisibility(View.GONE);
         }
 
         saveButton.setOnClickListener(v -> salvarCliente());
         deleteButton.setOnClickListener(v -> deletarCliente());
 
-        // Abre o DatePicker ao tocar no campo de data
         birthDateInput.setOnClickListener(v -> mostrarDatePicker());
     }
 
@@ -131,8 +132,7 @@ public class CustomerEditActivity extends AppCompatActivity {
         }
 
         if (customer == null) {
-            // Novo cliente
-            Customer novo = new Customer(null, name, lastName, email, phone, cpf, birthDate);
+            Customer novo = new Customer(null, name, lastName, email, phone, cpf, birthDate, new ArrayList<DeliveryAddress>());
             apiService.createCustomer(novo).enqueue(new Callback<Customer>() {
                 @Override
                 public void onResponse(Call<Customer> call, Response<Customer> response) {
@@ -150,7 +150,6 @@ public class CustomerEditActivity extends AppCompatActivity {
                 }
             });
         } else {
-            // Atualizar cliente existente
             customer.setName(name);
             customer.setLastName(lastName);
             customer.setEmail(email);

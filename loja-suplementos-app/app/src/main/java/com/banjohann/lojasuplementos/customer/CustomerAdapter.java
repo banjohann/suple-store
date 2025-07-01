@@ -1,4 +1,4 @@
-package com.banjohann.lojasuplementos;
+package com.banjohann.lojasuplementos.customer;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.banjohann.lojasuplementos.R;
 import com.banjohann.lojasuplementos.model.Customer;
 
 import java.util.List;

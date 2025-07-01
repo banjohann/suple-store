@@ -1,5 +1,6 @@
 package com.loja.suplementos.customer;
 
+import com.loja.suplementos.customer.domain.Customer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 @Slf4j
@@ -43,6 +43,17 @@ public class CustomerRestController {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
         }
+    }
+
+    @PostMapping("/mobile")
+    public ResponseEntity<?> save(@RequestBody Customer customer) {
+        try {
+            this.service.save(customer);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
+        }
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("")

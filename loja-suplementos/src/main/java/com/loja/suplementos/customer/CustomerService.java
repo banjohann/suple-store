@@ -21,6 +21,20 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    public void save(Customer customer) {
+        Customer existingCustomer = customerRepository.findByEmailOrCpf(customer.getEmail(), customer.getCpf());
+        if (existingCustomer != null) {
+            if (existingCustomer.getCpf().equals(customer.getCpf())) {
+                throw new IllegalArgumentException("CPF já cadastrado");
+            }
+            if (existingCustomer.getEmail().equals(customer.getEmail())) {
+                throw new IllegalArgumentException("Email já cadastrado");
+            }
+        }
+
+        customerRepository.save(customer);
+    }
+
     public void save(Map<String, String> params) {
         var email = params.get("email");
         var cpf = params.get("cpf");

@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.banjohann.lojasuplementos.sale.BarcodeScannerActivity;
+import com.banjohann.lojasuplementos.customer.CustomersActivity;
 import com.banjohann.lojasuplementos.sale.SalesActivity;
 import com.google.android.material.card.MaterialCardView;
 

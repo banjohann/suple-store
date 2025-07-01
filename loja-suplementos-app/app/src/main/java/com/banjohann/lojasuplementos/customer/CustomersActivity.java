@@ -1,4 +1,4 @@
-package com.banjohann.lojasuplementos;
+package com.banjohann.lojasuplementos.customer;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.banjohann.lojasuplementos.R;
 import com.banjohann.lojasuplementos.api.ApiClient;
 import com.banjohann.lojasuplementos.api.CustomerApiService;
 import com.banjohann.lojasuplementos.model.Customer;
@@ -73,7 +74,8 @@ public class CustomersActivity extends AppCompatActivity implements CustomerAdap
         });
 
         addCustomerFab.setOnClickListener(v -> {
-            Toast.makeText(CustomersActivity.this, "Adicionar novo cliente", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(CustomersActivity.this, CustomerEditActivity.class);
+            startActivity(intent);
         });
 
         loadCustomers();
@@ -143,7 +145,6 @@ public class CustomersActivity extends AppCompatActivity implements CustomerAdap
         Intent intent = new Intent(this, CustomerEditActivity.class);
         intent.putExtra("customer", customer);
         startActivity(intent);
-        Toast.makeText(this, "Cliente selecionado: " + customer.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

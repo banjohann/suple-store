@@ -28,12 +28,15 @@
         </intent-filter>
     </activity>
     <activity
-        android:name=".BarcodeScannerActivity"
+        android:name=".sale.BarcodeScannerActivity"
         android:exported="false"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" />
     <activity
         android:name=".CustomersActivity"
+        android:exported="false" />
+    <activity
+        android:name=".sale.SalesActivity"
         android:exported="false" />
 </application>
 

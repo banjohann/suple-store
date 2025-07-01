@@ -1,4 +1,4 @@
-package com.banjohann.lojasuplementos;
+package com.banjohann.lojasuplementos.sale;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -18,6 +18,8 @@ import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.banjohann.lojasuplementos.R;
+import com.banjohann.lojasuplementos.ScannerOverlayView;
 import com.google.android.material.button.MaterialButton;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.barcode.BarcodeScanner;

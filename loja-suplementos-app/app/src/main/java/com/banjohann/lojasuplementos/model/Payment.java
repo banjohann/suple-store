@@ -9,7 +9,7 @@ public class Payment {
 
     PaymentMethod paymentMethod;
 
-    PaymentStatus paymentStatus;
+    PaymentStatus status;
 
     BigDecimal amount;
 
@@ -18,7 +18,7 @@ public class Payment {
     public Payment(Long id, PaymentMethod paymentMethod, PaymentStatus paymentStatus, BigDecimal amount, Date transactionDate) {
         this.id = id;
         this.paymentMethod = paymentMethod;
-        this.paymentStatus = paymentStatus;
+        this.status = paymentStatus;
         this.amount = amount;
         this.transactionDate = transactionDate;
     }
@@ -39,12 +39,12 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
+    public PaymentStatus getStatus() {
+        return status;
     }
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
     }
 
     public BigDecimal getAmount() {

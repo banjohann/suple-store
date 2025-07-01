@@ -22,4 +22,8 @@ public class ApiClient {
     public static CustomerApiService getCustomerService() {
         return getClient().create(CustomerApiService.class);
     }
+
+    public static SaleApiService getSaleService() {
+        return getClient().create(SaleApiService.class);
+    }
 }

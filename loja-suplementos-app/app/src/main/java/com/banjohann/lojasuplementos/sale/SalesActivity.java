@@ -1,4 +1,4 @@
-package com.banjohann.lojasuplementos;
+package com.banjohann.lojasuplementos.sale;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,9 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.banjohann.lojasuplementos.R;
 import com.banjohann.lojasuplementos.api.ApiClient;
-import com.banjohann.lojasuplementos.api.CustomerApiService;
-import com.banjohann.lojasuplementos.model.Customer;
+import com.banjohann.lojasuplementos.api.SaleApiService;
+import com.banjohann.lojasuplementos.model.Sale;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -24,38 +25,38 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomersActivity extends AppCompatActivity implements CustomerAdapter.OnCustomerClickListener {
+public class SalesActivity extends AppCompatActivity implements SaleAdapter.OnSaleClickListener {
 
-    private RecyclerView customersRecyclerView;
-    private CustomerAdapter customerAdapter;
+    private RecyclerView salesRecyclerView;
+    private SaleAdapter saleAdapter;
     private SwipeRefreshLayout swipeRefresh;
     private SearchView searchView;
     private View progressBar;
-    private CustomerApiService apiService;
-    private List<Customer> allCustomers = new ArrayList<>();
+    private SaleApiService apiService;
+    private List<Sale> allSales = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customers);
+        setContentView(R.layout.activity_sales);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        customersRecyclerView = findViewById(R.id.customersRecyclerView);
+        salesRecyclerView = findViewById(R.id.salesRecyclerView);
         swipeRefresh = findViewById(R.id.swipeRefresh);
         searchView = findViewById(R.id.searchView);
         progressBar = findViewById(R.id.progressBar);
-        FloatingActionButton addCustomerFab = findViewById(R.id.addCustomerFab);
+        FloatingActionButton addSaleFab = findViewById(R.id.addSaleFab);
 
-        customerAdapter = new CustomerAdapter(new ArrayList<>(), this);
-        customersRecyclerView.setAdapter(customerAdapter);
+        saleAdapter = new SaleAdapter(new ArrayList<>(), this);
+        salesRecyclerView.setAdapter(saleAdapter);
 
-        apiService = ApiClient.getCustomerService();
+        apiService = ApiClient.getSaleService();
 
         swipeRefresh.setColorSchemeResources(R.color.colorPrimaryDark);
-        swipeRefresh.setOnRefreshListener(this::loadCustomers);
+        swipeRefresh.setOnRefreshListener(this::loadSales);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -65,81 +66,80 @@ public class CustomersActivity extends AppCompatActivity implements CustomerAdap
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterCustomers(newText);
+                filterSales(newText);
                 return true;
             }
         });
 
-        addCustomerFab.setOnClickListener(v -> {
-            Toast.makeText(CustomersActivity.this, "Adicionar novo cliente", Toast.LENGTH_SHORT).show();
+        addSaleFab.setOnClickListener(v -> {
+            Toast.makeText(SalesActivity.this, "Adicionar nova venda", Toast.LENGTH_SHORT).show();
         });
 
-        loadCustomers();
+        loadSales();
     }
 
-    private void loadCustomers() {
+    private void loadSales() {
         progressBar.setVisibility(View.VISIBLE);
 
-        apiService.getCustomers().enqueue(new Callback<List<Customer>>() {
+        apiService.getSales().enqueue(new Callback<List<Sale>>() {
             @Override
-            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+            public void onResponse(Call<List<Sale>> call, Response<List<Sale>> response) {
                 progressBar.setVisibility(View.GONE);
                 swipeRefresh.setRefreshing(false);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    allCustomers = response.body();
-                    customerAdapter.updateData(allCustomers);
+                    allSales = response.body();
+                    saleAdapter.updateData(allSales);
 
-                    if (allCustomers.isEmpty()) {
+                    if (allSales.isEmpty()) {
                         showEmptyState();
                     }
                 } else {
-                    Toast.makeText(CustomersActivity.this,
-                            "Erro ao carregar clientes: " + response.code(),
+                    Toast.makeText(SalesActivity.this,
+                            "Erro ao carregar vendas: " + response.code(),
                             Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Customer>> call, Throwable t) {
+            public void onFailure(Call<List<Sale>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 swipeRefresh.setRefreshing(false);
-                Toast.makeText(CustomersActivity.this,
+                Toast.makeText(SalesActivity.this,
                         "Falha na conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void showEmptyState() {
-        Toast.makeText(this, "Nenhum cliente encontrado", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Nenhuma venda encontrada", Toast.LENGTH_SHORT).show();
     }
 
-    private void filterCustomers(String query) {
+    private void filterSales(String query) {
         if (query == null || query.isEmpty()) {
-            customerAdapter.updateData(allCustomers);
+            saleAdapter.updateData(allSales);
             return;
         }
 
-        List<Customer> filteredList = new ArrayList<>();
+        List<Sale> filteredList = new ArrayList<>();
         String lowerCaseQuery = query.toLowerCase();
 
-        for (Customer customer : allCustomers) {
-            String fullName = customer.getName() + " " + customer.getLastName();
-            if (fullName.toLowerCase().contains(lowerCaseQuery) ||
-                (customer.getEmail() != null && customer.getEmail().toLowerCase().contains(lowerCaseQuery)) ||
-                (customer.getPhone() != null && customer.getPhone().contains(lowerCaseQuery)) ||
-                (customer.getCpf() != null && customer.getCpf().contains(lowerCaseQuery))) {
-                filteredList.add(customer);
+        for (Sale sale : allSales) {
+            String customerName = sale.getCustomer().getName() + " " + sale.getCustomer().getLastName();
+            if (customerName.toLowerCase().contains(lowerCaseQuery) ||
+                    sale.getId().toString().contains(lowerCaseQuery) ||
+                    sale.getPayment().getPaymentMethod().getDescription().toLowerCase().contains(lowerCaseQuery) ||
+                    sale.getPayment().getStatus().getDescription().toLowerCase().contains(lowerCaseQuery)) {
+                filteredList.add(sale);
             }
         }
 
-        customerAdapter.updateData(filteredList);
+        saleAdapter.updateData(filteredList);
     }
 
     @Override
-    public void onCustomerClick(Customer customer) {
-        // TODO: Navigate to customer details
-        Toast.makeText(this, "Cliente selecionado: " + customer.getName(), Toast.LENGTH_SHORT).show();
+    public void onSaleClick(Sale sale) {
+        Toast.makeText(this, "Venda selecionada: #" + sale.getId(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

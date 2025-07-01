@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.banjohann.lojasuplementos.sale.BarcodeScannerActivity;
+import com.banjohann.lojasuplementos.sale.SalesActivity;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         salesCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BarcodeScannerActivity.class);
+                Intent intent = new Intent(MainActivity.this, SalesActivity.class);
                 startActivity(intent);
             }
         });

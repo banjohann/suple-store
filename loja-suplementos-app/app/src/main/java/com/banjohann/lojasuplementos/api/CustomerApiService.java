@@ -19,10 +19,10 @@ public interface CustomerApiService {
     @GET("customers/{id}")
     Call<Customer> getCustomerById(@Path("id") int id);
 
-    @POST("customers")
+    @POST("customers/app")
     Call<Customer> createCustomer(@Body Customer customer);
 
-    @PUT("customers/{id}")
+    @PUT("customers/app/{id}")
     Call<Void> updateCustomer(@Path("id") Long id, @Body Customer customer);
 
     @DELETE("customers/{id}")

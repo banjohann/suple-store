@@ -12,8 +12,8 @@ public class Utils {
     public static String getErrorMessage(ResponseBody errorBody) {
         try {
             JSONObject json = new JSONObject(errorBody.string());
-            if (json.has("message")) {
-                return json.getString("message");
+            if (json.has("errorMessage")) {
+                return json.getString("errorMessage");
             }
         } catch (JSONException | IOException ignored) { }
 

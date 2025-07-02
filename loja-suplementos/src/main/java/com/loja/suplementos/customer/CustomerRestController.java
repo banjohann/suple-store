@@ -45,7 +45,7 @@ public class CustomerRestController {
         }
     }
 
-    @PostMapping("/mobile")
+    @PostMapping("/app")
     public ResponseEntity<?> save(@RequestBody Customer customer) {
         try {
             this.service.save(customer);
@@ -73,6 +73,18 @@ public class CustomerRestController {
     public ResponseEntity<?> editCustomer(@PathVariable Long id, @RequestBody Map<String, String> data) {
         try {
             this.service.update(data);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/app/{id}")
+    public ResponseEntity<?> editCustomer(@PathVariable Long id, @RequestBody Customer customer) {
+        try {
+            this.service.update(id, customer);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));

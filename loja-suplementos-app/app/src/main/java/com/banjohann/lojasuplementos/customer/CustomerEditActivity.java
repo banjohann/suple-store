@@ -16,8 +16,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.banjohann.lojasuplementos.R;
 import com.banjohann.lojasuplementos.api.ApiClient;
 import com.banjohann.lojasuplementos.api.CustomerApiService;
+import com.banjohann.lojasuplementos.api.Utils;
 import com.banjohann.lojasuplementos.model.Customer;
 import com.banjohann.lojasuplementos.model.DeliveryAddress;
+
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -140,7 +143,8 @@ public class CustomerEditActivity extends AppCompatActivity {
                         Toast.makeText(CustomerEditActivity.this, "Cliente criado", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(CustomerEditActivity.this, "Erro ao criar cliente", Toast.LENGTH_SHORT).show();
+                        String erro = Utils.getErrorMessage(response.errorBody());
+                        Toast.makeText(CustomerEditActivity.this, "Erro ao salvar cliente: " + erro, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -157,14 +161,15 @@ public class CustomerEditActivity extends AppCompatActivity {
             customer.setCpf(cpf);
             customer.setBirthDate(birthDate);
 
-            apiService.updateCustomer(customer.getId().intValue(), customer).enqueue(new Callback<Void>() {
+            apiService.updateCustomer(customer.getId(), customer).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(CustomerEditActivity.this, "Cliente atualizado", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(CustomerEditActivity.this, "Erro ao atualizar cliente", Toast.LENGTH_SHORT).show();
+                        String erro = Utils.getErrorMessage(response.errorBody());
+                        Toast.makeText(CustomerEditActivity.this, "Erro ao atualizar cliente: " + erro, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -179,14 +184,15 @@ public class CustomerEditActivity extends AppCompatActivity {
     private void deletarCliente() {
         if (customer == null || customer.getId() == null) return;
 
-        apiService.deleteCustomer(customer.getId().intValue()).enqueue(new Callback<Void>() {
+        apiService.deleteCustomer(customer.getId()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(CustomerEditActivity.this, "Cliente excluído", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(CustomerEditActivity.this, "Erro ao excluir cliente", Toast.LENGTH_SHORT).show();
+                    String erro = Utils.getErrorMessage(response.errorBody());
+                    Toast.makeText(CustomerEditActivity.this, "Erro ao excluir cliente: " + erro, Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -21,7 +21,7 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public void save(Customer customer) {
+    public Customer save(Customer customer) {
         Customer existingCustomer = customerRepository.findByEmailOrCpf(customer.getEmail(), customer.getCpf());
         if (existingCustomer != null) {
             if (existingCustomer.getCpf().equals(customer.getCpf())) {
@@ -33,6 +33,7 @@ public class CustomerService {
         }
 
         customerRepository.save(customer);
+        return customer;
     }
 
     public void save(Map<String, String> params) {

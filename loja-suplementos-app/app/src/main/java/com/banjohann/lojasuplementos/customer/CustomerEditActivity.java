@@ -1,7 +1,9 @@
 package com.banjohann.lojasuplementos.customer;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -141,16 +143,18 @@ public class CustomerEditActivity extends AppCompatActivity {
                 public void onResponse(Call<Customer> call, Response<Customer> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(CustomerEditActivity.this, "Cliente criado", Toast.LENGTH_SHORT).show();
-                        finish();
                     } else {
                         String erro = Utils.getErrorMessage(response.errorBody());
                         Toast.makeText(CustomerEditActivity.this, "Erro ao salvar cliente: " + erro, Toast.LENGTH_SHORT).show();
                     }
+
+                    startActivity(new Intent(CustomerEditActivity.this, CustomersActivity.class));
+                    finish();
                 }
 
                 @Override
                 public void onFailure(Call<Customer> call, Throwable t) {
-                    Toast.makeText(CustomerEditActivity.this, "Falha: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("CustomerEditActivity", "Erro ao criar cliente", t);
                 }
             });
         } else {
@@ -166,16 +170,18 @@ public class CustomerEditActivity extends AppCompatActivity {
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(CustomerEditActivity.this, "Cliente atualizado", Toast.LENGTH_SHORT).show();
-                        finish();
                     } else {
                         String erro = Utils.getErrorMessage(response.errorBody());
                         Toast.makeText(CustomerEditActivity.this, "Erro ao atualizar cliente: " + erro, Toast.LENGTH_SHORT).show();
                     }
+
+                    startActivity(new Intent(CustomerEditActivity.this, CustomersActivity.class));
+                    finish();
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    Toast.makeText(CustomerEditActivity.this, "Falha: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("CustomerEditActivity", "Erro ao criar cliente", t);
                 }
             });
         }
@@ -198,7 +204,7 @@ public class CustomerEditActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(CustomerEditActivity.this, "Falha: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("CustomerEditActivity", "Erro ao criar cliente", t);
             }
         });
     }

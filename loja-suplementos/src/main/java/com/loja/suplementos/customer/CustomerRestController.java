@@ -48,12 +48,12 @@ public class CustomerRestController {
     @PostMapping("/app")
     public ResponseEntity<?> save(@RequestBody Customer customer) {
         try {
-            this.service.save(customer);
+            Customer response = this.service.save(customer);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
         }
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("")

@@ -22,6 +22,7 @@ public class CustomerService {
     }
 
     public Customer save(Customer customer) {
+        customerValidation(customer);
         Customer existingCustomer = customerRepository.findByEmailOrCpf(customer.getEmail(), customer.getCpf());
         if (existingCustomer != null) {
             if (existingCustomer.getCpf().equals(customer.getCpf())) {
@@ -87,13 +88,14 @@ public class CustomerService {
         Customer existingCustomer = customerRepository
             .findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+        customerValidation(customer);
 
         existingCustomer.setName(customer.getName());
         existingCustomer.setLastName(customer.getLastName());
         existingCustomer.setBirthDate(customer.getBirthDate());
         existingCustomer.setPhone(customer.getPhone());
-        customer.setEmail(customer.getEmail());
-        customer.setCpf(customer.getCpf());
+        existingCustomer.setEmail(customer.getEmail());
+        existingCustomer.setCpf(customer.getCpf());
 
         customerRepository.save(existingCustomer);
     }
@@ -104,6 +106,32 @@ public class CustomerService {
             .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
 
         customerRepository.delete(customer);
+    }
+
+    private void customerValidation(Customer customer) {
+        if (customer.getName() == null || customer.getName().isBlank()) {
+            throw new IllegalArgumentException("Nome é obrigatório");
+        }
+
+        if (customer.getEmail() == null || customer.getEmail().isBlank()) {
+            throw new IllegalArgumentException("Email é obrigatório");
+        }
+
+        if (!customer.getEmail().matches("^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$")) {
+            throw new IllegalArgumentException("Email inválido");
+        }
+
+        if (customer.getPhone() == null || customer.getPhone().isBlank()) {
+            throw new IllegalArgumentException("Telefone é obrigatório");
+        }
+
+        if (!customer.getPhone().matches("^\\(?\\d{2}\\)?[\\s-]?\\d{4,5}-?\\d{4}$")) {
+            throw new IllegalArgumentException("Telefone inválido (formato esperado: (XX)XXXXX-XXXX)");
+        }
+
+        if (customer.getCpf() == null || customer.getCpf().isBlank()) {
+            throw new IllegalArgumentException("CPF é obrigatório");
+        }
     }
 
     public List<Customer> findAll() {

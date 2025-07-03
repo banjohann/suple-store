@@ -1,6 +1,8 @@
 package com.banjohann.lojasuplementos.model;
 
-public class Brand {
+import java.io.Serializable;
+
+public class Brand implements Serializable {
 
     Long id;
 

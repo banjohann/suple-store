@@ -43,6 +43,16 @@ public class ProductRestController {
         }
     }
 
+    @GetMapping("/barcode/{barcode}")
+    public ResponseEntity<?> getProductById(@PathVariable String barcode) {
+        try {
+            return ResponseEntity.ok(productService.findByBarcode(barcode));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("errorMessage", e.getMessage()));
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Map<String, String> data) {
         try {

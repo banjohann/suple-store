@@ -3,6 +3,7 @@ package com.loja.suplementos.customer.domain;
 import com.loja.suplementos.address.DeliveryAddress;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,9 +45,10 @@ public class Customer {
 
     private Date birthDate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId")
     private Set<DeliveryAddress> deliveryAddresses = new HashSet<>();
+
 
     public String getFullName() {
         return name + " " + lastName;

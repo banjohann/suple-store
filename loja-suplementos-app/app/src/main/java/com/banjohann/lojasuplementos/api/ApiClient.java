@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     //Troque a URL pelo IP do seu server
-    private static final String BASE_URL = "http://10.0.2.2:8080/api/";
+    private static final String BASE_URL = "http://192.168.1.16:8080/api/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
@@ -32,5 +32,9 @@ public class ApiClient {
 
     public static SaleApiService getSaleService() {
         return getClient().create(SaleApiService.class);
+    }
+
+    public static ProductApiService getProductService() {
+        return getClient().create(ProductApiService.class);
     }
 }

@@ -1,8 +1,9 @@
 package com.banjohann.lojasuplementos.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Sale {
+public class Sale implements Serializable {
 
     Long id;
 

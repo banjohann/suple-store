@@ -1,5 +1,6 @@
 package com.banjohann.lojasuplementos.sale;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,11 +72,12 @@ public class SalesActivity extends AppCompatActivity implements SaleAdapter.OnSa
             }
         });
 
-        addSaleFab.setOnClickListener(v -> {
-            Toast.makeText(SalesActivity.this, "Adicionar nova venda", Toast.LENGTH_SHORT).show();
-        });
-
         loadSales();
+
+        addSaleFab.setOnClickListener(v -> {
+            Intent intent = new Intent(SalesActivity.this, NewSaleActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void loadSales() {

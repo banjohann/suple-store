@@ -80,7 +80,7 @@ public class CustomerService {
         existingCustomer.setBirthDate(Utils.convertStringToDate(params.get("birthDate")));
         existingCustomer.setPhone(params.get("phoneNumber"));
 
-        customerRepository.update(existingCustomer);
+        customerRepository.save(existingCustomer);
     }
 
     public void update(Long id, Customer customer) {

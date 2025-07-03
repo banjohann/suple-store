@@ -1,6 +1,8 @@
 package com.banjohann.lojasuplementos.model;
 
-public class DeliveryAddress {
+import java.io.Serializable;
+
+public class DeliveryAddress implements Serializable {
 
     Long id;
 

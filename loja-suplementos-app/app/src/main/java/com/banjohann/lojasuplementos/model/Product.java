@@ -1,8 +1,9 @@
 package com.banjohann.lojasuplementos.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Product {
+public class Product implements Serializable {
     Long id;
 
     String barcode;

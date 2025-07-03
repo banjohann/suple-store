@@ -1,12 +1,14 @@
 package com.loja.suplementos.shipping;
 
 import com.loja.suplementos.shipping.domain.Shipping;
+import com.loja.suplementos.shipping.domain.ShippingStatus;
 import com.loja.suplementos.shipping.repository.ShippingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional

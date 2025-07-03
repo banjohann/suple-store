@@ -1,5 +1,6 @@
 package com.loja.suplementos.sale;
 
+import com.loja.suplementos.sale.domain.Sale;
 import com.loja.suplementos.sale.dto.SaleDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,18 @@ public class SaleRestController {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("errorMessage", e.getMessage()));
         }
+    }
+
+    @PostMapping("/mobile")
+    public ResponseEntity<?> createSaleMobile(@RequestBody Sale sale) {
+        try {
+            service.save(sale);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("errorMessage", e.getMessage()));
+        }
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping

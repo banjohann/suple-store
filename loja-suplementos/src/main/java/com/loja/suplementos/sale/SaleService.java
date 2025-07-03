@@ -1,6 +1,8 @@
 package com.loja.suplementos.sale;
 
+import com.loja.suplementos.address.DeliveryAddress;
 import com.loja.suplementos.customer.CustomerService;
+import com.loja.suplementos.customer.domain.Customer;
 import com.loja.suplementos.payment.PaymentService;
 import com.loja.suplementos.payment.domain.Payment;
 import com.loja.suplementos.product.ProductService;
@@ -9,6 +11,7 @@ import com.loja.suplementos.sale.domain.SaleItem;
 import com.loja.suplementos.sale.dto.SaleDTO;
 import com.loja.suplementos.sale.repository.SaleRepository;
 import com.loja.suplementos.shipping.ShippingService;
+import com.loja.suplementos.shipping.domain.Shipping;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,24 @@ public class SaleService {
 
     public Sale findById(long id) {
         return saleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Venda não encontrada"));
+    }
+
+    public void save(Sale sale) {
+        Customer customer = customerService.findById(sale.getCustomer().getId());
+        DeliveryAddress deliveryAddress = customer
+            .getDeliveryAddresses()
+            .stream()
+            .filter(delivery-> delivery.getId().equals(sale.getShipping().getDeliveryAddress().getId()))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Endereço de entrega não encontrado"));
+
+        sale.getShipping().setDeliveryAddress(deliveryAddress);
+
+        shippingService.save(sale.getShipping());
+        paymentService.save(sale.getPayment());
+        sale.setCustomer(customer);
+
+        saleRepository.save(sale);
     }
 
     public void save(SaleDTO saleDTO) {

@@ -5,6 +5,7 @@ import com.banjohann.lojasuplementos.model.Sale;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -13,5 +14,5 @@ public interface SaleApiService {
     Call<List<Sale>> getSales();
 
     @POST("sales/mobile")
-    Call<Void> createSale(Sale sale);
+    Call<Void> createSale(@Body Sale sale);
 }

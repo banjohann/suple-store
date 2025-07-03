@@ -23,9 +23,14 @@ import com.banjohann.lojasuplementos.api.ProductApiService;
 import com.banjohann.lojasuplementos.api.SaleApiService;
 import com.banjohann.lojasuplementos.model.Customer;
 import com.banjohann.lojasuplementos.model.DeliveryAddress;
+import com.banjohann.lojasuplementos.model.Payment;
+import com.banjohann.lojasuplementos.model.PaymentMethod;
+import com.banjohann.lojasuplementos.model.PaymentStatus;
 import com.banjohann.lojasuplementos.model.Product;
 import com.banjohann.lojasuplementos.model.Sale;
 import com.banjohann.lojasuplementos.model.SaleItem;
+import com.banjohann.lojasuplementos.model.Shipping;
+import com.banjohann.lojasuplementos.model.ShippingStatus;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.math.BigDecimal;
@@ -34,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -307,7 +313,10 @@ public class NewSaleActivity extends AppCompatActivity {
             return;
         }
 
-        Sale newSale = new Sale(null, new Date(), null, selectedCustomer, null);
+        Shipping newShipping = new Shipping(null, UUID.randomUUID().toString(), "Não entregue", ShippingStatus.NOT_SHIPPED, selectedDeliveryAddress);
+        Payment newPayment = new Payment(null, PaymentMethod.PIX, PaymentStatus.PENDING, totalAmount, new Date());
+
+        Sale newSale = new Sale(null, new Date(), newPayment, selectedCustomer, newShipping, saleItems);
 
         saleApiService.createSale(newSale).enqueue(new Callback<Void>() {
             @Override

@@ -2,6 +2,7 @@ package com.banjohann.lojasuplementos.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Sale implements Serializable {
 
@@ -15,11 +16,14 @@ public class Sale implements Serializable {
 
     Shipping shipping;
 
-    public Sale(Long id, Date dateCreated, Payment payment, Customer customer, Shipping shipping) {
+    List<SaleItem> saleItems;
+
+    public Sale(Long id, Date dateCreated, Payment payment, Customer customer, Shipping shipping, List<SaleItem> saleItems) {
         this.id = id;
         this.dateCreated = dateCreated;
         this.payment = payment;
         this.customer = customer;
+        this.saleItems = saleItems;
         this.shipping = shipping;
     }
 
@@ -61,5 +65,13 @@ public class Sale implements Serializable {
 
     public void setShipping(Shipping shipping) {
         this.shipping = shipping;
+    }
+
+    public List<SaleItem> getSaleItems() {
+        return saleItems;
+    }
+
+    public void setSaleItems(List<SaleItem> saleItems) {
+        this.saleItems = saleItems;
     }
 }

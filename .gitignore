@@ -1,1 +1,6 @@
 loja-suplementos/target/
+*.class
+
+loja-suplementos/build/**/*.class
+loja-suplementos/target/**/*.class
+loja-suplementos/out/**/*.class

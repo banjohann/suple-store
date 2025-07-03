@@ -1,6 +1,11 @@
-loja-suplementos/target/
 *.class
 
-loja-suplementos/build/**/*.class
-loja-suplementos/target/**/*.class
-loja-suplementos/out/**/*.class
+# Backend specific (loja-suplementos)
+loja-suplementos/target/
+loja-suplementos/.mvn/
+
+# Android specific (loja-suplementos-app)
+loja-suplementos-app/build/
+loja-suplementos-app/local.properties
+loja-suplementos-app/.gradle/
+loja-suplementos-app/captures/

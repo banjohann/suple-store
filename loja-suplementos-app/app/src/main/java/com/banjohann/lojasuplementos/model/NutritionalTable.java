@@ -1,6 +1,8 @@
 package com.banjohann.lojasuplementos.model;
 
-public class NutritionalTable {
+import java.io.Serializable;
+
+public class NutritionalTable implements Serializable {
     private Long id;
 
     private float servingSize;

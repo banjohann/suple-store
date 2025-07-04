@@ -2,7 +2,7 @@ spring:
   profiles:
     active: Postgres
   datasource:
-    url: jdbc:postgresql://localhost:5432/loja-suplementos
+    url: jdbc:postgresql://localhost:5433/loja-suplementos
     username: loja-suplementos-admin
     password: umasenhanadasegura
   jpa:

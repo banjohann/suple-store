@@ -45,7 +45,7 @@ public class SaleRestController {
         }
     }
 
-    @PostMapping("/mobile")
+    @PostMapping("/app")
     public ResponseEntity<?> createSaleMobile(@RequestBody Sale sale) {
         try {
             service.save(sale);

@@ -12,4 +12,8 @@ public enum ShippingStatus {
     ShippingStatus(String descritption) {
         this.descritption = descritption;
     }
+
+    public String getDescription() {
+        return descritption;
+    }
 }

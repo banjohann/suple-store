@@ -323,6 +323,7 @@ public class NewSaleActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(NewSaleActivity.this, "Venda criada com sucesso!", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
                     finish();
                 } else {
                     Toast.makeText(NewSaleActivity.this, "Erro ao criar venda: " + response.code(), Toast.LENGTH_SHORT).show();
@@ -332,6 +333,8 @@ public class NewSaleActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(NewSaleActivity.this, "Falha ao criar venda: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
     }
@@ -339,9 +342,16 @@ public class NewSaleActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            setResult(RESULT_CANCELED);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
     }
 }

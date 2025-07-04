@@ -29,11 +29,6 @@
         </intent-filter>
     </activity>
     <activity
-        android:name=".sale.BarcodeScannerActivity"
-        android:exported="false"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppTheme" />
-    <activity
         android:name=".customer.CustomersActivity"
         android:exported="false" />
     <activity
@@ -43,6 +38,7 @@
         android:name=".sale.SalesActivity"
         android:exported="false" />
     <activity android:name=".sale.NewSaleActivity"/>
+    <activity android:name=".sale.SaleDetailActivity"/>
 </application>
 
 </manifest>

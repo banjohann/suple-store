@@ -1,4 +1,9 @@
 # Lojasuplementos - Aplicativo de Gerenciamento
+Equipe:
+- Daniel Bett
+- Emanualle de Toledo Medeiros
+- Erick de Souza Nunes
+- Johann Alexander Bandelow
 
 ## Vídeo de apresentação no Youtube
 https://youtu.be/Hdq2HZSUyLU

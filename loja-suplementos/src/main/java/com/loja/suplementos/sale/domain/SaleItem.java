@@ -2,6 +2,7 @@ package com.loja.suplementos.sale.domain;
 
 import com.loja.suplementos.product.domain.Product;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class SaleItem {
 
     private Long saleId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "product_id")
     private Product product;
 

@@ -77,10 +77,12 @@ public class CustomersActivity extends AppCompatActivity implements CustomerAdap
             Intent intent = new Intent(CustomersActivity.this, CustomerEditActivity.class);
             startActivity(intent);
         });
-
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
         loadCustomers();
     }
-
     private void loadCustomers() {
         progressBar.setVisibility(View.VISIBLE);
 

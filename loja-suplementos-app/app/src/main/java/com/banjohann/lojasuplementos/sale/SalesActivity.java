@@ -28,6 +28,7 @@ import retrofit2.Response;
 
 public class SalesActivity extends AppCompatActivity implements SaleAdapter.OnSaleClickListener {
 
+    private static final int NEW_SALE_REQUEST = 100;
     private RecyclerView salesRecyclerView;
     private SaleAdapter saleAdapter;
     private SwipeRefreshLayout swipeRefresh;
@@ -75,8 +76,8 @@ public class SalesActivity extends AppCompatActivity implements SaleAdapter.OnSa
         loadSales();
 
         addSaleFab.setOnClickListener(v -> {
-            Intent intent = new Intent(SalesActivity.this, NewSaleActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(this, NewSaleActivity.class);
+            startActivityForResult(intent, NEW_SALE_REQUEST);
         });
     }
 
@@ -141,7 +142,9 @@ public class SalesActivity extends AppCompatActivity implements SaleAdapter.OnSa
 
     @Override
     public void onSaleClick(Sale sale) {
-        Toast.makeText(this, "Venda selecionada: #" + sale.getId(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, SaleDetailActivity.class);
+        intent.putExtra(SaleDetailActivity.EXTRA_SALE_ID, sale.getId());
+        startActivity(intent);
     }
 
     @Override
@@ -151,5 +154,14 @@ public class SalesActivity extends AppCompatActivity implements SaleAdapter.OnSa
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NEW_SALE_REQUEST && resultCode == RESULT_OK) {
+            loadSales();
+        }
     }
 }

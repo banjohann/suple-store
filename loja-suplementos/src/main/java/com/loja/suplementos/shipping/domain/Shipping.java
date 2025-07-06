@@ -39,7 +39,7 @@ public class Shipping {
 
     private String statusDescription;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_address_id", nullable = true)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "delivery_address_id")
     private DeliveryAddress deliveryAddress;
 }
